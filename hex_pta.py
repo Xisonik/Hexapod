@@ -33,23 +33,49 @@ def find_alpha_i(B, B_last, i):
     print("check_2", np.arctan((B[2*6 + i] - B_last[2*6 + i])/B[3*6 + i]))
     return np.arctan((B[2*6 + i] - B_last[2*6 + i])/B[3*6 + i])
 
+# def find_T(x, y, z, q1=0, q2=0, q3=0):
+#     T = np.empty(shape=(16))
+
+#     T[0] = np.cos(q3)*np.cos(q2)
+#     T[1] = np.cos(q3)*np.sin(q2)*np.sin(q1) - np.sin(q3)*np.cos(q1)
+#     T[2] = np.cos(q3)*np.sin(q2)*np.cos(q1) + np.sin(q3)*np.sin(q1)
+
+#     T[3] = np.sin(q3)*np.cos(q2)
+#     T[4] = np.sin(q3)*np.sin(q2)*np.sin(q1) + np.cos(q3)*np.cos(q1)
+#     T[5] = np.sin(q3)*np.sin(q2)*np.cos(q1) - np.cos(q3)*np.sin(q1)
+
+#     T[6] = -np.sin(q2)
+#     T[7] = np.cos(q2) * np.sin(q1)
+#     T[8] = np.cos(q2) * np.cos(q1)
+
+#     T[9] = x
+#     T[10] = y
+#     T[11] = z
+
+#     T[12] = 0
+#     T[13] = 0
+#     T[14] = 0
+#     T[15] = 1
+#     print("T ", T)
+
+#     return T
+
 def find_T(x, y, z, q1=0, q2=0, q3=0):
     T = np.empty(shape=(16))
 
     T[0] = np.cos(q3)*np.cos(q2)
     T[1] = np.cos(q3)*np.sin(q2)*np.sin(q1) - np.sin(q3)*np.cos(q1)
     T[2] = np.cos(q3)*np.sin(q2)*np.cos(q1) + np.sin(q3)*np.sin(q1)
+    T[3] = x
 
-    T[3] = np.sin(q3)*np.cos(q2)
-    T[4] = np.sin(q3)*np.sin(q2)*np.sin(q1) + np.cos(q3)*np.cos(q1)
-    T[5] = np.sin(q3)*np.sin(q2)*np.cos(q1) - np.cos(q3)*np.sin(q1)
+    T[4] = np.sin(q3)*np.cos(q2)
+    T[5] = np.sin(q3)*np.sin(q2)*np.sin(q1) + np.cos(q3)*np.cos(q1)
+    T[6] = np.sin(q3)*np.sin(q2)*np.cos(q1) - np.cos(q3)*np.sin(q1)
+    T[7] = y
 
-    T[6] = -np.sin(q2)
-    T[7] = np.cos(q2) * np.sin(q1)
-    T[8] = np.cos(q2) * np.cos(q1)
-
-    T[9] = x
-    T[10] = y
+    T[8] = -np.sin(q2)
+    T[9] = np.cos(q2) * np.sin(q1)
+    T[10] = np.cos(q2) * np.cos(q1)
     T[11] = z
 
     T[12] = 0
@@ -60,6 +86,31 @@ def find_T(x, y, z, q1=0, q2=0, q3=0):
 
     return T
 
+# def find_T(x, y, z, q1=0, q2=0, q3=0):
+#     T = np.empty(shape=(16))
+
+#     T[0] = np.cos(q3)*np.cos(q2)
+#     T[1] = np.sin(q3)*np.cos(q2)
+#     T[2] = -np.sin(q2)
+#     T[3] = 0
+
+#     T[4] = np.cos(q3)*np.sin(q2)*np.sin(q1) - np.sin(q3)*np.cos(q1)
+#     T[5] = np.sin(q3)*np.sin(q2)*np.sin(q1) + np.cos(q3)*np.cos(q1)
+#     T[6] = np.cos(q2) * np.sin(q1)
+#     T[7] = 0
+    
+#     T[8] = np.cos(q3)*np.sin(q2)*np.cos(q1) + np.sin(q3)*np.sin(q1)
+#     T[9] = np.sin(q3)*np.sin(q2)*np.cos(q1) - np.cos(q3)*np.sin(q1)
+#     T[10] = np.cos(q2) * np.cos(q1)
+#     T[11] = 0
+
+#     T[12] = x
+#     T[13] = y
+#     T[14] = z    
+#     T[15] = 1
+#     print("T ", T)
+
+#     return T
 # main function
 if __name__ == "__main__":
     H = Hexapod()
@@ -179,7 +230,7 @@ if __name__ == "__main__":
     B[21] = T[12]*B_last[3] + T[13]*B_last[9] + T[14]*B_last[15] + T[15]*B_last[21]
     B[22] = T[12]*B_last[4] + T[13]*B_last[10] + T[14]*B_last[16] + T[15]*B_last[22]
     B[23] = T[12]*B_last[5] + T[13]*B_last[11] + T[14]*B_last[17] + T[15]*B_last[23]
-
+    print("B_new: " , B)
     flag_valid = 0
     # for k in range(0,6):#убрать цикл
     phi_start = 85
